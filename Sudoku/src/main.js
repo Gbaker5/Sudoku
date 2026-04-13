@@ -41,6 +41,7 @@ for(let i = 0; i < 9; i++) {
   }
 }
 
+// CREATE NUMBER SELECTION PANEL
 function createNumberSelection() {
   for(let i = 1; i < 10; i++){
     const numberSelectContainer = document.getElementById('number-selection');
@@ -70,6 +71,7 @@ createClearButton();
 
 //////GAME LOGIC//////
 
+
 //CHOOSE NUMBER TO PLACE
 let currentNumber = null;
 
@@ -80,7 +82,7 @@ document.querySelectorAll('.number-option').forEach(option => {
 
 function chooseNumber(input){
     //let currentNumber = input;
-    //console.log(`Current number selected: ${currentNumber}`);
+    console.log(`Current number selected: ${currentNumber}`);
   return currentNumber = input;
 }
 
@@ -88,6 +90,10 @@ function chooseNumber(input){
 //CLEAR CURRENT NUMBER SELECTION
 document.querySelector('.clear-button').addEventListener('click', () => {
   currentNumber = null;
+  document.querySelectorAll('.number-option').forEach(option => {
+    option.classList.remove('selectedNum');
+   })
+
   console.log('Current number cleared');
 });
 
@@ -143,12 +149,53 @@ for(let i = 0; i < 9; i++) {
 gotClicked();
 
 
+//INPUT NUMBER INTO CELL ON CLICK
+function inputValue() {
+if(currentNumber) {
+  for(let i = 0; i < 9; i++) {
+    for(let j = 0; j < 9; j++) {
+      const cell = document.querySelector(`.cell-${i}-${j}`);
+      cell.addEventListener('click', () => {
+        cell.textContent = currentNumber;
+        cell.style.color = 'black';
+      });
+    }
+  }
+}
+}
+
+inputValue();
 
 
+let firstRow = []
+let secondRow = []
+let thirdRow = []
+let fourthRow = []
+let fifthRow = []
+let sixthRow = []
+let seventhRow = []
+let eighthRow = []
+let ninthRow = []
 
+let boxOne = []
+let boxTwo = []
+let boxThree = []
+let boxFour = []
+let boxFive = []
+let boxSix = []
+let boxSeven = []
+let boxEight = []
+let boxNine = []
 
-
-
+let columnOne = []
+let columnTwo = []
+let columnThree = []
+let columnFour = []
+let columnFive = []
+let columnSix = []
+let columnSeven = []
+let columnEight = []
+let columnNine = []
 
 //show a valid puzzle on page load
 const showValidPuzzle = () => {
@@ -157,10 +204,7 @@ const showValidPuzzle = () => {
 
 showValidPuzzle();
 
-//Input handling for number entry
-function inputValue() {
 
-}
 
 
 //Game state management (keeping track of the current board state, validating moves, etc.)
