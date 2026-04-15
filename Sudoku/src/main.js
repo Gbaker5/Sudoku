@@ -104,11 +104,13 @@ document.querySelectorAll('.cell').forEach(cell => {
       console.log(`Hovering over cell with current number: ${currentNumber}`);
       cell.textContent = currentNumber;
       cell.style.color = 'green';
+      cell.classList.add('hoverShadow');
     }
   });
   cell.addEventListener('mouseleave', () => {
     if (currentNumber) {
       cell.textContent = '';
+      cell.classList.remove('hoverShadow');
     }
   });
 });
@@ -199,7 +201,50 @@ let columnNine = []
 
 //show a valid puzzle on page load
 const showValidPuzzle = () => {
- 
+ let firstRow = [4,3,5,2,6,9,7,8,1]
+ let secondRow = [6,8,2,5,7,1,4,9,3]
+ let thirdRow = [1,9,7,8,3,4,5,6,2]
+ let fourthRow = [8,2,6,1,9,5,3,4,7]
+ let fifthRow = [3,7,4,6,8,2,9,1,5]
+ let sixthRow = [9,5,1,7,4,3,6,2,8]
+ let seventhRow = [5,1,9,3,2,6,8,7,4]
+ let eighthRow = [2,4,8,9,5,7,1,3,6]
+ let ninthRow = [7,6,3,4,1,8,2,5,9]
+
+ //for each row of given puzzle, loop through each cell and add value to corresponding cell on gameboard
+ for(let i = 0; i < 9; i++) {
+  for(let j = 0; j < 9; j++) {
+    const cell = document.querySelector(`.cell-${i}-${j}`);
+    if(i === 0) {
+      cell.textContent = firstRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 1) {
+      cell.textContent = secondRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 2) {
+      cell.textContent = thirdRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 3) {
+      cell.textContent = fourthRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 4) {
+      cell.textContent = fifthRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 5) {
+      cell.textContent = sixthRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 6) {
+      cell.textContent = seventhRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 7) {
+      cell.textContent = eighthRow[j];
+      cell.classList.add('validShadow')
+    } else if(i === 8) {
+      cell.textContent = ninthRow[j];
+      cell.classList.add('validShadow')
+    }
+  }
+ }
 };
 
 showValidPuzzle();

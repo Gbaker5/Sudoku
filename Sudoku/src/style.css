@@ -24,6 +24,13 @@ h1{
   cursor: pointer;
 }
 
+.hoverShadow{
+  color: lightgreen;
+  display: flex;
+  justify-content: center;
+  align-items: start
+}
+
 .row{
   display: flex;
   justify-content: center;
@@ -79,4 +86,11 @@ h1{
   align-items: center;
   margin: 20px auto;
   cursor: pointer;
+}
+
+.validShadow{
+  color: rgba(0, 0, 0, 0.1);
+display: flex;
+justify-content: center;
+align-items: center;
 }
