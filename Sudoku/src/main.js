@@ -205,14 +205,26 @@ for(let i = 0; i < 9; i++) {
             cell.textContent = '';
             cell.classList.remove('normalInput');
             console.log(` current number: ${currentNumber} removed from cell ${i}-${j}`);
+
+            checkRows()
+            //checkColumns()
+            //checkSubgrids()
           }else if(cell.textContent) { //if cell already has a number, replace with new number
             cell.textContent = currentNumber;
             cell.classList.add('normalInput');
             console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
+
+            checkRows()
+            //checkColumns()
+            //checkSubgrids()
           } else { //if cell is empty, place number in cell
           cell.textContent = currentNumber;
           cell.classList.add('normalInput');
           console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
+
+            checkRows()
+            //checkColumns()
+            //checkSubgrids()
           }
       } //end of normal mumber placement logic
 
@@ -228,7 +240,12 @@ for(let i = 0; i < 9; i++) {
        // //console.log(`Pencil mark ${currentNumber} added to cell ${i}-${j}`);
        // }  
       } //end of pencil mark logic
-  }
+      }//end of if current number is selected
+      if(!currentNumber) { //if no number is selected, clear cell on click
+        cell.textContent = '';
+        cell.classList.remove('normalInput');
+        console.log(` current number cleared from cell ${i}-${j}`);
+      }
     });
   }
 }
@@ -337,18 +354,49 @@ const showValidPuzzle = () => {
  }
 };
 
-showValidPuzzle();
+//showValidPuzzle();
 
 
 
 
 //Game state management (keeping track of the current board state, validating moves, etc.)
+
+//check for duplicates
+//check for 1-9
+//am i checking agaisnst vurrent valid puzzle or just against current board state?
+//when i enter a number do i want to add to that rows array ie let firstRow = [4,3,5] and then check if current number is in that array before allowing placement? or do i want to loop through each cell in that row and check if any of them have the same number as current number?
+
+
   //check every row
   function checkRows() {
     for(let i = 0; i < 9; i++) {
+      function checkRowOne(){
+        const rowOne = document.querySelector(`.cell-${0}-${i}`).textContent;
+        console.log(rowOne)
+        firstRow[i] = rowOne
+        console.log(firstRow);
+      }
+      checkRowOne()
+
+      function checkRowTwo(){
+        const rowTwo = document.querySelector(`.cell-${1}-${i}`).textContent;
+        console.log(rowTwo)
+        secondRow[i] = rowTwo
+        console.log(secondRow);
+      }
+      checkRowTwo()
+
+
+
+
     }
   }
+
+
   //check every column
+
+
+
   //check every 3x3 subgrid
 
 
