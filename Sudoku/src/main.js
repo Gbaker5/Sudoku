@@ -68,6 +68,17 @@ function createClearButton() {
 
 createClearButton();
 
+function createPencilButton() {
+  const pencilButtonContainer = document.getElementById('pencil-button-ct');
+  const pencilButton = document.createElement('div');
+  pencilButton.classList.add('pencil-button');
+  pencilButton.textContent = 'Pencil';
+
+  pencilButtonContainer.appendChild(pencilButton);
+}
+
+createPencilButton();
+
 
 //////GAME LOGIC//////
 
@@ -97,20 +108,62 @@ document.querySelector('.clear-button').addEventListener('click', () => {
   console.log('Current number cleared');
 });
 
+//TOGGLE PENCIL MODE
+
+let pencilMode = false;
+
+document.getElementById('pencil-button-ct').addEventListener('click', () => {
+  togglePencil();
+});
+
+function togglePencil(){
+if(pencilMode === false){
+  pencilMode = true;
+  document.getElementById('pencil-button-ct').classList.add('pencilSelected');
+  console.log('Pencil mode enabled');
+}else if(pencilMode === true){
+  pencilMode = false;
+  document.getElementById('pencil-button-ct').classList.remove('pencilSelected');
+  console.log('Pencil mode disabled');  
+}
+}
+
 //SHOW CURRENT NUMBER ON HOVER
 document.querySelectorAll('.cell').forEach(cell => {
   cell.addEventListener('mouseenter', () => {
     if (currentNumber) {
+      //might want to add if statement to separate  hover for pencil marks vs. actual number placement
+      if(pencilMode === true) {
       console.log(`Hovering over cell with current number: ${currentNumber}`);
-      cell.textContent = currentNumber;
-      cell.style.color = 'green';
-      cell.classList.add('hoverShadow');
+      cell.style.setProperty('--hover-number', `"${currentNumber}"`);
+      cell.classList.add('pencil-hovering');
     }
+    
+    if(cell.textContext == null) { //enter normal hover state for number placement
+      console.log(`Hovering over cell with current number: ${currentNumber}`);
+      cell.style.setProperty('--hover-number', `"${currentNumber}"`);
+      cell.classList.add('normal-hovering');
+      //cell.classList.add('hoverShadow');
+    }
+      }
   });
+
+  //REMOVE HOVER EFFECT WHEN NOT HOVERING
   cell.addEventListener('mouseleave', () => {
     if (currentNumber) {
-      cell.textContent = '';
-      cell.classList.remove('hoverShadow');
+
+      if(pencilMode === true) { //for pencil mode
+      console.log('Stopped hovering over cell');
+      cell.classList.remove('pencil-hovering');
+      cell.style.setProperty('--hover-number', '""');
+
+    }
+    
+      if(cell.textContext == null) { //for normal number placement mode
+      console.log('Stopped hovering over cell');
+      cell.classList.remove('normal-hovering');
+      cell.style.setProperty('--hover-number', '""');}
+     
     }
   });
 });
@@ -143,12 +196,16 @@ for(let i = 0; i < 9; i++) {
     const cell = document.querySelector(`.cell-${i}-${j}`);
     cell.addEventListener('click', () => {
       console.log(`Cell ${i}-${j} clicked`);
+      cell.textContent = currentNumber;
+      console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
     });
   }
 }
 }
 
 gotClicked();
+
+
 
 
 //INPUT NUMBER INTO CELL ON CLICK
@@ -158,6 +215,8 @@ if(currentNumber) {
     for(let j = 0; j < 9; j++) {
       const cell = document.querySelector(`.cell-${i}-${j}`);
       cell.addEventListener('click', () => {
+
+        console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
         cell.textContent = currentNumber;
         cell.style.color = 'black';
       });
