@@ -31,13 +31,17 @@ h1{
   top: 2px;
   right: 4px;
   font-size: 12px;
-  color: green;
+  color: blue;
   opacity: 0;
   pointer-events: none;
 }
 
 .cell.pencil-hovering::after {
   opacity: 1;
+}
+
+.pencilSelected{
+  background-color: blue;
 }
 
 .cell::before {
@@ -127,13 +131,19 @@ h1{
   cursor: pointer;
 }
 
-.pencilSelected{
-  background-color: rgba(255, 0, 0, 0.3);
-}
+
 
 .validShadow{
   color: rgba(0, 0, 0, 0.1);
 display: flex;
 justify-content: center;
 align-items: center;
+}
+
+.normalInput{
+  color:black;
+}
+
+.pencilInput{
+  color: pink;
 }

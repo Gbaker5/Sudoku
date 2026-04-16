@@ -139,7 +139,7 @@ document.querySelectorAll('.cell').forEach(cell => {
       cell.classList.add('pencil-hovering');
     }
     
-    if(cell.textContext == null) { //enter normal hover state for number placement
+    if(cell.textContext == null && pencilMode === false) { //enter normal hover state for number placement
       console.log(`Hovering over cell with current number: ${currentNumber}`);
       cell.style.setProperty('--hover-number', `"${currentNumber}"`);
       cell.classList.add('normal-hovering');
@@ -159,7 +159,7 @@ document.querySelectorAll('.cell').forEach(cell => {
 
     }
     
-      if(cell.textContext == null) { //for normal number placement mode
+      if(cell.textContext == null && pencilMode === false) { //for normal number placement mode
       console.log('Stopped hovering over cell');
       cell.classList.remove('normal-hovering');
       cell.style.setProperty('--hover-number', '""');}
@@ -190,14 +190,45 @@ function toggleNumberOption (){
 }
  
 // ADD CLICK CONSOLE LOGS TO CELLS
+
+
 function gotClicked() {
 for(let i = 0; i < 9; i++) {
   for(let j = 0; j < 9; j++) {
     const cell = document.querySelector(`.cell-${i}-${j}`);
     cell.addEventListener('click', () => {
       console.log(`Cell ${i}-${j} clicked`);
-      cell.textContent = currentNumber;
-      console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
+      if(currentNumber) { //if number is selected
+
+        if(pencilMode === false) { //if pencil mode is not enabled, place current number in cell
+          if(cell.textContent == currentNumber) { //if cell is same number then remove number from cell
+            cell.textContent = '';
+            cell.classList.remove('normalInput');
+            console.log(` current number: ${currentNumber} removed from cell ${i}-${j}`);
+          }else if(cell.textContent) { //if cell already has a number, replace with new number
+            cell.textContent = currentNumber;
+            cell.classList.add('normalInput');
+            console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
+          } else { //if cell is empty, place number in cell
+          cell.textContent = currentNumber;
+          cell.classList.add('normalInput');
+          console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
+          }
+      } //end of normal mumber placement logic
+
+      if(pencilMode === true) { //if pencil mode is enabled, add current number as pencil mark in cell
+         
+       // console.log(`Pencil mark ${currentNumber} added to cell ${i}-${j}`);
+       //
+       // if() { //if pencil mark already exists, remove it
+       //
+       // //console.log(`Pencil mark ${currentNumber} removed from cell ${i}-${j}`);
+       // } else { //if pencil mark does not exist, add it
+       // 
+       // //console.log(`Pencil mark ${currentNumber} added to cell ${i}-${j}`);
+       // }  
+      } //end of pencil mark logic
+  }
     });
   }
 }
@@ -208,24 +239,24 @@ gotClicked();
 
 
 
-//INPUT NUMBER INTO CELL ON CLICK
-function inputValue() {
-if(currentNumber) {
-  for(let i = 0; i < 9; i++) {
-    for(let j = 0; j < 9; j++) {
-      const cell = document.querySelector(`.cell-${i}-${j}`);
-      cell.addEventListener('click', () => {
-
-        console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
-        cell.textContent = currentNumber;
-        cell.style.color = 'black';
-      });
-    }
-  }
-}
-}
-
-inputValue();
+////INPUT NUMBER INTO CELL ON CLICK
+//function inputValue() {
+//if(currentNumber) {
+//  for(let i = 0; i < 9; i++) {
+//    for(let j = 0; j < 9; j++) {
+//      const cell = document.querySelector(`.cell-${i}-${j}`);
+//      cell.addEventListener('click', () => {
+//
+//        console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
+//        cell.textContent = currentNumber;
+//        cell.style.color = 'black';
+//      });
+//    }
+//  }
+//}
+//}
+//
+//inputValue();
 
 
 let firstRow = []
