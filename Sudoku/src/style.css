@@ -14,7 +14,9 @@ h1{
   width: 50px;
   height: 50px;
   border: 1px solid black;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin: 0;
   padding: 0;
@@ -25,6 +27,7 @@ h1{
   cursor: pointer;
 }
 
+/*Styling for PENCIL number HOVER*/
 .cell::after {
   content: var(--hover-number);
   position: absolute;
@@ -45,12 +48,14 @@ h1{
   color:white
 }
 
+/*Styling for NORMAL number HOVER*/
 .cell::before {
   content: var(--hover-number);
   position: absolute;
   top: 16px;
   left: 20px;
-  font-size: 16px;
+  font-size: 20px;
+  
   color: blue;
   opacity: 0;
   pointer-events: none;

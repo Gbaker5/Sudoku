@@ -208,24 +208,24 @@ for(let i = 0; i < 9; i++) {
             console.log(` current number: ${currentNumber} removed from cell ${i}-${j}`);
 
             checkRows()
-            //checkColumns()
-            //checkSubgrids()
+            checkColumns()
+            checkSubgrids()
           }else if(cell.textContent) { //if cell already has a number, replace with new number
             cell.textContent = currentNumber;
             cell.classList.add('normalInput');
             console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
 
             checkRows()
-            //checkColumns()
-            //checkSubgrids()
+            checkColumns()
+            checkSubgrids()
           } else { //if cell is empty, place number in cell
           cell.textContent = currentNumber;
           cell.classList.add('normalInput');
           console.log(` current number: ${currentNumber} entered into cell ${i}-${j}`);
 
             checkRows()
-            //checkColumns()
-            //checkSubgrids()
+            checkColumns()
+            checkSubgrids()
           }
       } //end of normal mumber placement logic
 
@@ -287,6 +287,16 @@ let seventhRow = []
 let eighthRow = []
 let ninthRow = []
 
+let columnOne = []
+let columnTwo = []
+let columnThree = []
+let columnFour = []
+let columnFive = []
+let columnSix = []
+let columnSeven = []
+let columnEight = []
+let columnNine = []
+
 let boxOne = []
 let boxTwo = []
 let boxThree = []
@@ -297,15 +307,6 @@ let boxSeven = []
 let boxEight = []
 let boxNine = []
 
-let columnOne = []
-let columnTwo = []
-let columnThree = []
-let columnFour = []
-let columnFive = []
-let columnSix = []
-let columnSeven = []
-let columnEight = []
-let columnNine = []
 
 //show a valid puzzle on page load
 const showValidPuzzle = () => {
@@ -357,6 +358,7 @@ const showValidPuzzle = () => {
 
 //showValidPuzzle();
 //checkRows()
+//checkColumns()
 
 
 
@@ -382,64 +384,160 @@ function isValid(section){
 }
 
 
-  //check every row
+  //CHECK EVERY ROW
   function checkRows() {
 
     
    
-      function checkRowOne(){
-         for(let i = 0; i < 9; i++) {
-        //collect values of each cell in row into an array and check if current number is already in that array before allowing placement
-          const rowOne = document.querySelector(`.cell-${0}-${i}`).textContent;
-          console.log(rowOne)
-          firstRow[i] = rowOne
-          console.log(firstRow);
-         }
-        //check if current number is already in row array
-          if(firstRow.includes(currentNumber)) {
-            console.log(`Current number ${currentNumber} already exists in row ${1}`);
-            //maybe on hover the color of the current number turns red in that row
+      //function checkRowOne(){
+      //   for(let i = 0; i < 9; i++) {
+      //  //collect values of each cell in row into an array and check if current number is already in that array before allowing placement
+      //    const rowOne = document.querySelector(`.cell-${0}-${i}`).textContent;
+      //    console.log(rowOne)
+      //    firstRow[i] = rowOne
+      //    console.log(firstRow);
+      //   }
+      //  //check if current number is already in row array
+      //    if(firstRow.includes(currentNumber)) {
+      //      console.log(`Current number ${currentNumber} already exists in row ${1}`);
+      //      //maybe on hover the color of the current number turns red in that row
+//
+//
+//
+      //    } else {
+      //      console.log(`Current number ${currentNumber} does not exist in row ${1}`);
+      //    }
+//
+//
+      //  //add valid class to row if valid, remove if not valid
+      //  let valid = isValid(firstRow);
+//
+      //  for(let i = 0; i < 9; i++) {
+      //     const rowOneDivs = document.querySelector(`.cell-${0}-${i}`)
+      //     //console.log(rowOneDivs)
+//
+      //      if (valid) {
+      //        rowOneDivs.classList.add('validRow');
+      //        //console.log(`Row 1 is valid`);
+      //        //return true;
+      //     } else {
+      //        rowOneDivs.classList.remove('validRow');
+      //        //console.log(`Row 1 is not valid`);
+      //     }
+      //  }
+//
+      //  
+      //  if(valid) {
+      //    return true;
+      //  }
+      //   
+      //}
+//
+      //checkRowOne()
 
-
-
-          } else {
-            console.log(`Current number ${currentNumber} does not exist in row ${1}`);
-          }
-
-
-        //add valid class to row if valid, remove if not valid
-        let valid = isValid(firstRow);
-
-        for(let i = 0; i < 9; i++) {
-           const rowOneDivs = document.querySelector(`.cell-${0}-${i}`)
-           //console.log(rowOneDivs)
-
-            if (valid) {
-              rowOneDivs.classList.add('validRow');
-              console.log(`Row 1 is valid`);
-           } else {
-              rowOneDivs.classList.remove('validRow');
-              //console.log(`Row 1 is not valid`);
-           }
-        }
-         
-      }
-
-      checkRowOne()
-
-     
+      //if(checkRowOne() ) {
+    // console.log('Row 1 is valid');
+    //} else {
+    // console.log('Row 1 is not valid');
+    //}
 
 
 
     
-  }
+
+      /////////smaller/more efficient function to check rows that can be called for each row instead of having a separate function for each row
+      function checkRow(rowIndex, rowArray) {
+      for (let i = 0; i < 9; i++) {
+      rowArray[i] = document.querySelector(`.cell-${rowIndex}-${i}`).textContent;
+        }
+
+      let valid = isValid(rowArray);
+
+      for (let i = 0; i < 9; i++) {
+        const cell = document.querySelector(`.cell-${rowIndex}-${i}`);
+        cell.classList.toggle('validRow', valid);
+      }
+    }
+
+      checkRow(0, firstRow);
+      checkRow(1, secondRow);
+      checkRow(2, thirdRow);
+      checkRow(3, fourthRow);
+      checkRow(4, fifthRow);
+      checkRow(5, sixthRow);
+      checkRow(6, seventhRow);
+      checkRow(7, eighthRow);
+      checkRow(8, ninthRow);
 
 
-  //check every column
+}
+    
 
+  //CHECK EVERY COLUMN
+
+function checkColumns() {
+
+  function checkColumn(columnIndex, columnArray) {
+    for (let i = 0; i < 9; i++) {
+      columnArray[i] = document.querySelector(`.cell-${i}-${columnIndex}`).textContent;
+    }
+    
+    let valid = isValid(columnArray);
+
+      for (let i = 0; i < 9; i++) {
+        const cell = document.querySelector(`.cell-${i}-${columnIndex}`);
+        cell.classList.toggle('validColumn', valid);
+      }
+}
+
+  checkColumn(0, columnOne);
+  checkColumn(1, columnTwo);
+  checkColumn(2, columnThree);
+  checkColumn(3, columnFour);
+  checkColumn(4, columnFive);
+  checkColumn(5, columnSix);
+  checkColumn(6, columnSeven);
+  checkColumn(7, columnEight);
+  checkColumn(8, columnNine);
+}
 
 
   //check every 3x3 subgrid
+
+  function checkSubgrids() {
+    function checkBox(boxIndex, boxArray) {
+      const boxRowStart = Math.floor(boxIndex / 3) * 3;
+      const boxColStart = (boxIndex % 3) * 3;
+
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          boxArray[i * 3 + j] = document.querySelector(`.cell-${boxRowStart + i}-${boxColStart + j}`).textContent;
+        }
+      }
+
+      let valid = isValid(boxArray);
+
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          const cell = document.querySelector(`.cell-${boxRowStart + i}-${boxColStart + j}`);
+          cell.classList.toggle('validBox', valid);
+        }
+      }
+  }
+
+    checkBox(0, boxOne);
+    checkBox(1, boxTwo);
+    checkBox(2, boxThree);
+    checkBox(3, boxFour);
+    checkBox(4, boxFive);
+    checkBox(5, boxSix);
+    checkBox(6, boxSeven);
+    checkBox(7, boxEight);
+    checkBox(8, boxNine);
+  }
+
+
+
 
 
 
