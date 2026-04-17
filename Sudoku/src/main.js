@@ -355,8 +355,8 @@ const showValidPuzzle = () => {
  }
 };
 
-showValidPuzzle();
-checkRows()
+//showValidPuzzle();
+//checkRows()
 
 
 
@@ -370,11 +370,11 @@ checkRows()
   
 //validate if array has contains all numbers 1-9, no duplicates, and no empty cells
 function isValid(section){
-  
+  const valid =
   new Set(section).size === 9 &&
   section.every(num => num >= '1' && num <= '9');
 
-  if(isValid) {
+  if(valid) {
     return true;
   }else{
     return false;
@@ -384,78 +384,54 @@ function isValid(section){
 
   //check every row
   function checkRows() {
+
     
-    for(let i = 0; i < 9; i++) {
+   
       function checkRowOne(){
+         for(let i = 0; i < 9; i++) {
         //collect values of each cell in row into an array and check if current number is already in that array before allowing placement
           const rowOne = document.querySelector(`.cell-${0}-${i}`).textContent;
           console.log(rowOne)
           firstRow[i] = rowOne
           console.log(firstRow);
-        
+         }
         //check if current number is already in row array
           if(firstRow.includes(currentNumber)) {
             console.log(`Current number ${currentNumber} already exists in row ${1}`);
-            //maybe on hoveer the color of the current numnber turns red in that row
+            //maybe on hover the color of the current number turns red in that row
+
+
+
           } else {
             console.log(`Current number ${currentNumber} does not exist in row ${1}`);
           }
 
 
         //add valid class to row if valid, remove if not valid
-          const rowOneDivs = document.querySelector(`.cell-${0}-${i}`)
-           console.log(rowOneDivs)
+        let valid = isValid(firstRow);
 
-          if (isValid(firstRow)) {
-             console.log(`${i} count`);
-             console.log(rowOneDivs)
-             rowOneDivs.classList.add('validRow');
-             console.log(`Row 1 is valid`);
+        for(let i = 0; i < 9; i++) {
+           const rowOneDivs = document.querySelector(`.cell-${0}-${i}`)
+           //console.log(rowOneDivs)
+
+            if (valid) {
+              rowOneDivs.classList.add('validRow');
+              console.log(`Row 1 is valid`);
            } else {
-             //const rowOneDivs = document.querySelector(`.cell-${0}-${i}`);
-             rowOneDivs.classList.remove('validRow');
-           console.log(`Row 1 is not valid`);
+              rowOneDivs.classList.remove('validRow');
+              //console.log(`Row 1 is not valid`);
            }
+        }
+         
       }
+
       checkRowOne()
 
-     function checkRowTwo(){
-        //collect values of each cell in row into an array and check if current number is already in that array before allowing placement
-          const rowTwo = document.querySelector(`.cell-${1}-${i}`).textContent;
-          console.log(rowTwo)
-          secondRow[i] = rowTwo
-          console.log(secondRow);
-        
-        //check if current number is already in row array
-          if(secondRow.includes(currentNumber)) {
-            console.log(`Current number ${currentNumber} already exists in row ${2}`);
-            //maybe on hoveer the color of the current numnber turns red in that row
-          } else {
-            console.log(`Current number ${currentNumber} does not exist in row ${2}`);
-          }
-
-
-        //add valid class to row if valid, remove if not valid
-          const rowTwoDivs = document.querySelector(`.cell-${1}-${i}`)
-           console.log(rowTwoDivs)
-
-          if (isValid(secondRow)) {
-             console.log(`${i} count`);
-             console.log(rowTwoDivs)
-             rowTwoDivs.classList.add('validRow');
-             console.log(`Row 1 is valid`);
-           } else {
-             //const rowOneDivs = document.querySelector(`.cell-${0}-${i}`);
-             rowTwoDivs.classList.remove('validRow');
-           console.log(`Row 1 is not valid`);
-           }
-      }
-      checkRowTwo()
+     
 
 
 
-
-    }
+    
   }
 
 
